@@ -1,0 +1,77 @@
+/*弹出框*/
+#UPLOAD_POP {
+	left: 0px;
+	top: 0px;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	vertical-align: middle;
+}
+
+/*弹出框背景*/
+#POP_BG {
+	width: 100%;
+	height: 100%;
+	background-color: #000000;
+	opacity: 0.7;
+}
+
+/*弹出框外框体*/
+#POP_SPACE {
+	top: 230px;
+	left: 0px;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+}
+
+/*弹出框框体*/
+#POP_BOX {
+	position: relative;
+	margin: auto auto;
+	width: 400px;
+	height: auto;
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-right: 15px;
+	padding-bottom: 40px;
+	background-color: #FFFFFF;
+}
+
+/*需要上传的图片*/
+#MY_JCROP_IMAGE {
+	width: 400px;
+	height: 300px;
+}
+
+/*2个水平排布的按钮*/
+#MY_UPLOAD_BUTTONS {
+	width: 100%;
+	margin-top: 20px;
+	text-align: center;
+}
+
+/*是两个按钮水平居中排布*/
+#MY_UPLOAD_BUTTONS div {
+	position: relative;
+	float: left;
+	width: 50%;
+}
+
+/*选择文件的按钮 (隐藏在另一个按钮下面)*/
+#MY_JCROP_SELECT_IMAGE {
+	left: 0;
+	height: 100%!important;
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+/*弹出框 关闭按钮*/
+#POP_CLOSE {
+	position: absolute;
+	top: -16px;
+	right: -16px;
+}

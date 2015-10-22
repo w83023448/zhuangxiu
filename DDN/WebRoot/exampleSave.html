@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>案例搜索</title>
+
+<!-- 样式文件导入 -->
+<!-- 电脑版样式 -->
+<link rel="stylesheet" type="text/css" href="css/pc_css.css" />
+<!-- 电脑版样式 end -->
+
+<!-- 手机版样式 -->
+<link rel="stylesheet" type="text/css" href="css/mobile_css.css" />
+<!-- 手机版样式 end -->
+
+<!-- 弹出框样式 -->
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="css/jquery.Jcrop.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/myUploadFile.css"/>
+<!-- 弹出框样式 -->
+<!-- 样式文件导入 end -->
+
+<!-- js文件导入 -->
+<!-- jquery框架 -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!-- jquery框架 end -->
+
+<!--后台交互-->
+<script type="text/javascript" src="res/pcm/pcm.src.js"></script>
+<!--后台交互 end-->
+
+
+<script src="js/leftright.js" type=text/javascript></script>
+<!--左右切换不循环-->
+<script type="text/javascript" src="js/script.js"></script>
+<!--左右切换不循环 end-->
+
+<!-- 弹出框fancybox -->
+<script type="text/javascript" src="js/jquery.fancybox.js"></script>
+<!-- 弹出框fancybox end-->
+
+<!-- 搜索框插件 -->
+<script type="text/javascript" src="js/enplaceholder.js"></script>
+<!-- 搜索框插件 end -->
+
+<!-- 顶部通用js -->
+<script type="text/javascript" src="js/effect/common/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/effect/common/jquery.Jcrop.min.js"></script>
+<script type="text/javascript" src="js/effect/common/dingxizhe.upload.js"></script>
+<script type="text/javascript" src="js/request/example/example.js"></script>
+<!-- 顶部通用js end -->
+
+<!-- 顶部通用交互js -->
+<script type="text/javascript" src="js/request/common/top.js"></script>
+<!--fancybox end-->
+<!-- 顶部通用交互js end -->
+<!-- js文件导入 end -->
+
+<script type="text/javascript">
+	$(function() {
+
+		$(".jiazai").click(function() {
+			$(".hideLi").fadeIn();
+		});
+
+		$(".jiazai2").click(function() {
+			$(".hideLi").fadeIn();
+		});
+
+
+			//搜索按钮
+	$(".sousuoLink").click(function() {
+		$(this).hide();
+		$(this).next(".searchEm").show();
+	});
+	
+	// 登录注册弹出层
+	$(".fancybox").fancybox({
+		closeBtn : false
+	});
+	
+	// 登录注册tab切换
+	$(".logTablist li").each(function(index, element) {
+		$(this).click(function() {
+			$(".logTablist li").removeClass("tabon");
+			$(this).addClass("tabon");
+
+			$(".logWrap").removeClass("logWrapShow");
+			$(".logWrap").eq(index).addClass("logWrapShow");
+		});
+	});
+		//调用placeholder
+		//通过value模拟placeholder
+		$('input,textarea').placeholder();
+		//通过插入元素模拟placeholder
+		$('input,textarea').placeholder({
+			isUseSpan : true
+		});
+
+		//鼠标划过，出现编辑图标
+		$(".chakanCntBox01").hover(function() {
+			$(this).find(".editIcon").fadeIn(200);
+		}, function() {
+			$(this).find(".editIcon").fadeOut(200);
+		});
+
+		//
+		$(".chakanCntBox02").hover(function() {
+			$(this).find(".editIcon02").fadeIn(200);
+		}, function() {
+			$(this).find(".editIcon02").fadeOut(200);
+		});
+		//
+		$(".baike_main").hover(function() {
+			$(this).find(".xuanfu").fadeIn(200);
+		}, function() {
+			$(this).find(".xuanfu").fadeOut(200);
+		});
+
+		//
+		$(".chakanCntBox06").hover(function() {
+			$(this).find(".editIcon06").fadeIn(200);
+		}, function() {
+			$(this).find(".editIcon06").fadeOut(200);
+		});
+
+		//
+		$(".chakanCntBox07").hover(function() {
+			$(this).find(".editIcon07").fadeIn(200);
+		}, function() {
+			$(this).find(".editIcon07").fadeOut(200);
+		});
+
+		//
+		$(".miaoshu").hover(function() {
+			$(this).find(".editIcon08").fadeIn(200);
+		}, function() {
+			$(this).find(".editIcon08").fadeOut(200);
+		});
+
+	});
+</script>
+
+<script type="text/javascript">
+			$(function() {
+				$("#CHOOSE_PHOTO").fancybox({
+					'centerOnScroll': true,
+					'hideOnOverlayClick':false,
+					'padding':15,
+					'margin':20
+				});
+			});
+		</script>
+		<style>
+			#MY_JCROP_SELECT_IMAGE {
+				left: 0;
+				height: 100%;
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+			}
+		</style>
+</head>
+
+<body>
+
+	<!-- 顶部模块 -->
+	<div class="top">
+	<ul>
+		<li class="logined" style="display: none;"><a
+			href="javascript:exit()">退出</a></li>
+		<li class="logined" style="display: none;" id="userinfo"></li>
+		<li class="yinchang">
+		<a href="#LOGIN_AND_REGISTET" class="fancybox">
+		<img src="images/zhuce.png" />注册</a></li>
+		<li class="yinchang">
+			<a href="#LOGIN_AND_REGISTET" class="fancybox">
+		<img src="images/login.png" align="middle"
+				width="21" height="21" />登录</a></li>
+		<li style="padding-bottom:0;"><a href="javascript:void(0)"
+			class="sousuoLink"><img src="images/sousuo.png" /> </a> <em
+			class="clearfix searchEm"> <span><input type="text"
+					placeholder="试试关键字搜索更多" value=""> </span> <span><a href="#"><img
+						src="images/sousuo02.jpg"> </a> </span> </em>
+		</li>
+	</ul>
+</div>
+	<!-- 顶部模块  end -->
+
+	<!-- 悬浮层模块包括(logo,回到顶部,二维码) -->
+	<script type="text/javascript">
+		function b() {
+			h = $(window).height();
+			t = $(document).scrollTop();
+			if (t > 100) {
+				$('#gotop').show();
+			} else {
+				$('#gotop').hide();
+			}
+		}
+		$(document).ready(function(e) {
+			b();
+			$('#gotop').click(function() {
+				$(document).scrollTop(0);
+			});
+			$('#code').hover(function() {
+				$(this).attr('id', 'code_hover');
+				$('#code_img').show();
+			}, function() {
+				$(this).attr('id', 'code');
+				$('#code_img').hide();
+			});
+
+		});
+
+		$(window).scroll(function(e) {
+			b();
+		});
+	</script>
+<div id="code"></div>
+<div id="code_img"></div>
+<a id="gotop" href="javascript:void(0)"></a>
+<!-- logo -->
+<div class="logo">
+	<img src="images/logo2.png" />
+</div>
+	<!-- 悬浮层模块 end -->
+	
+	<!-- 导航栏模块 -->
+	<div class="nav">
+		<ul>
+			<li><a href="index.jsp"><span class="title_icon"><img
+						src="images/icon_index.jpg" />
+				</span><span class="title">首页</span>
+			</a>
+			</li>
+			<li><a href="exampleSave.jsp"><span class="title_icon"><img
+						src="images/icon_anli01.jpg" />
+				</span><span class="title nav_xianshi">搜索案例</span>
+			</a>
+			</li>
+			<li id="aboutus"><a href="index.html#anli_title02"><span
+					class="title_icon"><img src="images/icon_about.jpg" />
+				</span><span class="title">关于我们</span>
+			</a>
+			</li>
+			<li id="contactus"><a href="index.html#anli_title03"><span
+					class="title_icon"><img src="images/icon_contact.jpg" />
+				</span><span class="title">联系我们</span>
+			</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 导航栏模块 end -->
+	
+	<div class="anli_h">XXX设计师 <span><input id="EDIT_EXAMPLE_NAME" placeholder="请填写案例名称" /></span></div>
+	<div class="anli_main02 clearfix">
+		<div class="anli_main_left">
+			<div class="fengmian chakanCntBox06">
+				<a href="javascript:openDiv('#EDIT_EXAMPLE_COVER')">
+					<img id="EDIT_EXAMPLE_COVER" src="images/fengmian01.jpg" />
+				</a> <span>封面</span>
+				<!--鼠标放上去悬浮-->
+				<a class="editIcon06"><img src="images/bianji.png" />
+				</a>
+				<!--鼠标放上去悬浮 end-->
+			</div>
+			<div class="history">
+				<h1>历史留言</h1>
+				<ul class="history_list">
+					<li class="chakanCntBox07"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+					<li class="chakanCntBox07"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+					<li class="chakanCntBox07"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+					<li class="chakanCntBox07"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+
+
+					<li class="chakanCntBox07 hideLi"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+					<li class="chakanCntBox07 hideLi"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+					<li class="chakanCntBox07 hideLi"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+					<li class="chakanCntBox07 hideLi"><a href="javascript:void()">效果特别好，质量过关，很细心，谢谢刘师傅！好评</a>
+						<a class="editIcon07" href="javascript:void()">删除</a></li>
+				</ul>
+				<div class="jiazai2">
+					<a href="javascript:void(0)"><img src="images/jiazai.png" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="anli_main_right">
+			<div class="da_title02">户型图</div>
+			<div id="zzsc09">
+				<a class="pre"></a>
+				<div id="wai_box">
+					<div class="zzsc_box">
+						<ul>
+							<li>
+								<a href="#" class="images">
+									<img src="images/tianjia.jpg" />
+								 </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<a class="next"></a>
+			</div>
+
+			<div class="da_title03">案例详情</div>
+			<div class="ruanzhuang clearfix">
+				<h1>软装</h1>
+				<div id="zzsc10">
+					<a class="pre"></a>
+					<div id="wai_box">
+						<div class="zzsc_box">
+							<ul>
+								<li>
+									<a href="#" class="images">
+									 <img src="images/tianjia.jpg" />
+								 	</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<a class="next"></a>
+				</div>
+			</div>
+			<div class="ruanzhuang clearfix">
+				<h1>家居</h1>
+				<div id="zzsc11">
+					<a class="pre"></a>
+					<div id="wai_box">
+						<div class="zzsc_box">
+							<ul>
+								<li>
+									<a href="#" class="images">
+									 <img src="images/tianjia.jpg" />
+								 	</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<a class="next"></a>
+				</div>
+			</div>
+			<div class="ruanzhuang clearfix">
+				<h1>安装</h1>
+				<div id="zzsc12">
+					<a class="pre"></a>
+					<div id="wai_box">
+						<div class="zzsc_box">
+							<ul>
+								<li>
+									<a href="#" class="images">
+									 <img src="images/tianjia.jpg" />
+								 	</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<a class="next"></a>
+				</div>
+			</div>
+			<div class="ruanzhuang clearfix">
+				<h1>油漆</h1>
+				<div id="zzsc13">
+					<a class="pre"></a>
+					<div id="wai_box">
+						<div class="zzsc_box">
+							<ul>
+								<li>
+									<a href="#" class="images">
+									 <img src="images/tianjia.jpg" />
+								 	</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<a class="next"></a>
+				</div>
+			</div>
+			<div class="ruanzhuang clearfix">
+				<h1>水电</h1>
+				<div id="zzsc14">
+					<a class="pre"></a>
+					<div id="wai_box">
+						<div class="zzsc_box">
+							<ul>
+								<li>
+									<a href="#" class="images">
+										<img src="images/tianjia.jpg" />
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<a class="next"></a>
+				</div>
+			</div>
+			<div class="ruanzhuang clearfix">
+				<h1>毛坯</h1>
+				<div id="zzsc15">
+					<a class="pre"></a>
+					<div id="wai_box">
+						<div class="zzsc_box">
+							<ul>
+								<li>
+									<a href="#" class="images">
+										<img src="images/tianjia.jpg" />
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<a class="next"></a>
+				</div>
+			</div>
+			<div class="miaoshu">
+				案例描述：<br /> 
+				<textarea id="EDIT_EXAMPLE_DESCRIBE" style="width:680px; min-height:80px;" name="" cols="" rows="" placeholder="请输入案例描述"></textarea>
+			</div>
+		</div>
+	</div>
+	<div class="baocun clearfix">
+		<ul>
+			<li><a class="xuanzhong" href="javascript:uploadExample()">保存</a>
+			</li>
+			<li><a href="javascript:void()">取消</a>
+			</li>
+		</ul>
+	</div>
+	<!-- 底部模块 -->
+	<!-- 底部栏 -->
+	<div class="footer">
+		<span>版权所有 © XXXX装修公司</span><span>备案号：IP15263542268</span>
+	</div>
+	<!-- 底部模块 end -->
+	
+	<!-- 登录注册模块  -->
+	<div id="LOGIN_AND_REGISTET" style="width:390px;display: none;">
+	<ul class="logTablist clearfix">
+		<li class="tabon"><a href="javascript:void(0)">登录</a></li>
+		<li style="mgr0"><a href="javascript:void(0)">注册</a></li>
+	</ul>
+
+	<div class="logWrap logWrapShow">
+		<div id="USER_NAME_SPACE">
+			<input id="USER_NAME" placeholder="用户名" type="text" class="inputType" />
+			<input id="USER_PWD" placeholder="密码" type="password"
+				class="inputType" />
+		</div>
+		<div id="ERROE_LOGIN_SPACE" class="tishi">
+			<div class="tishi_mid" id="ERROE_LOGIN_INFO"></div>
+		</div>
+		<div class="logForgets">
+			<a href="javascript:forget_password()">忘记密码？</a>
+		</div>
+		<input type="submit" value="登录" class="inputSmt"
+			onclick="javascript:login()" onkeypress="javascript:login()" />
+	</div>
+
+	<div class="logWrap">
+
+		<div id="PHONE_SPACE">
+			<input id="PHONE" placeholder="手机号" type="text" class="inputType" />
+			<div id="ERROE_PHONE_SPACE" class="tishi">
+				<div class="tishi_top"></div>
+				<div class="tishi_mid" id="ERROE_PHONE_INFO"></div>
+			</div>
+
+			<input id="PWD" placeholder="密码" type="password" class="inputType" />
+			<div id="ERROE_PASSWORD_SPACE" class="tishi">
+				<div class="tishi_top"></div>
+				<div class="tishi_mid" id="ERROE_PASSWORD_INFO"></div>
+			</div>
+
+			<input id="INVITATION_CODE" placeholder="邀请码" type="text"
+				class="inputType" />
+			<div id="ERROE_INVITATION_CODE_SPACE" class="tishi">
+				<div class="tishi_top"></div>
+				<div class="tishi_mid" id="ERROE_INVITATION_CODE_INFO"></div>
+			</div>
+		</div>
+
+		<input type="submit" value="提交" class="inputSmt"
+			onkeypress="javascript:register()" onclick="javascript:register()" />
+	</div>
+</div>
+	<!-- 登录注册模块 end -->
+	
+	<!-- 上传图片模块  -->
+	<div id="UPLOAD_POP" style="display: none;">
+			<div id="POP_BG"></div>
+			<div id="POP_SPACE">
+				<div id="POP_BOX">
+					<div id="IMAGE_DIV" align="center">
+						<img id="MY_JCROP_IMAGE" src="images/shangchuan.jpg"/>
+						<input id="x" type="hidden" name="x"></input>
+						<input id="y" type="hidden" name="y"></input>
+						<input id="w" type="hidden" name="w"></input>
+						<input id="h" type="hidden" name="h"></input>
+					</div>
+					<p style="color: red;" align="center">上传的图片分辨率必须大于400x300</p>
+					<div id="MY_UPLOAD_BUTTONS">
+						<div>
+							<button>选择图片</button>
+							<input id="MY_JCROP_SELECT_IMAGE" type="file" accept=".png,.jpg" />
+						</div>
+						<div>
+							<button id="UPLOAD_PICTURE" onclick="javascript:uploadPic()">上传图片</button>
+						</div>
+					</div>
+					<div id="POP_CLOSE">
+						<a href="javascript:closeDiv()"><img src="images/close.png"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- 上传图片模块 end  -->
+</body>
+</html>

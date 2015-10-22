@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>公司主页</title>
+
+<!-- 样式文件导入 -->
+<!-- 电脑版样式 -->
+<link rel="stylesheet" type="text/css" href="css/pc_css.css" />
+<!-- 电脑版样式 end -->
+
+<!-- 手机版样式 -->
+<link rel="stylesheet" type="text/css" href="css/mobile_css.css" />
+<!-- 手机版样式 end -->
+
+<!-- 弹出框样式 -->
+<link rel="stylesheet" type="text/css" href="css/jquery.fancybox.css"/>
+<!-- 弹出框样式 -->
+<!-- 样式文件导入 end -->
+
+<!-- js文件导入 -->
+<!-- jquery框架 -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!-- jquery框架 end -->
+
+<!--后台交互-->
+<script type="text/javascript" src="res/pcm/pcm.src.js"></script>
+<!--后台交互 end-->
+
+<!--首页banner-->
+<script type="text/javascript" src="js/responsiveslides.min.js"></script>
+<script type="text/javascript" src="js/slide.js"></script>
+<!--首页banner end-->
+
+<!-- write by 黄 -->
+<!--首页案例切换-->
+<script type="text/javascript" src="js/zzsc.js"></script>
+<!--首页案例切换end-->
+<!-- 自定义js -->
+<script type="text/javascript" src="js/js.js"></script>
+<!-- 自定义js end -->
+<!-- write by 黄 end -->
+
+<!-- 弹出框fancybox -->
+<script type="text/javascript" src="js/jquery.fancybox.js"></script>
+<!-- 弹出框fancybox end-->
+
+<!-- 搜索框插件 -->
+<script type="text/javascript" src="js/enplaceholder.js"></script>
+<!-- 搜索框插件 end -->
+
+<!-- 顶部通用交互js -->
+<script type="text/javascript" src="js/request/common/top.js"></script>
+<!-- 顶部通用交互js end -->
+<!-- js文件导入 end -->
+
+<script type="text/javascript">
+	$(function() {
+
+		$(".box").hover(function() {
+			$(this).find(".boxHover").slideDown(100);
+		}, function() {
+			$(this).find(".boxHover").slideUp(100);
+		});
+
+		$(".slide_container").hover(function() {
+			$(this).find(".slide_nav.prev").slideDown(100);
+		}, function() {
+			$(this).find(".slide_nav.prev").slideUp(100);
+		});
+
+		$(".slide_container").hover(function() {
+			$(this).find(".slide_nav.next").slideDown(100);
+		}, function() {
+			$(this).find(".slide_nav.next").slideUp(100);
+		});
+		
+			//搜索按钮
+	$(".sousuoLink").click(function() {
+		$(this).hide();
+		$(this).next(".searchEm").show();
+	});
+	
+	// 登录注册弹出层
+	$(".fancybox").fancybox({
+		closeBtn : false
+	});
+	
+	// 登录注册tab切换
+	$(".logTablist li").each(function(index, element) {
+		$(this).click(function() {
+			$(".logTablist li").removeClass("tabon");
+			$(this).addClass("tabon");
+
+			$(".logWrap").removeClass("logWrapShow");
+			$(".logWrap").eq(index).addClass("logWrapShow");
+		});
+	});
+
+		//调用placeholder
+		//通过value模拟placeholder
+		$('input,textarea').placeholder();
+		//通过插入元素模拟placeholder
+		$('input,textarea').placeholder({
+			isUseSpan : true
+		});
+
+		$(document).scroll(function() {
+			var h = $(document).scrollTop();
+			if (h > 400) {
+				$("#anli_title01").animate({
+					top : 0,
+					opacity : 1
+				}, 700);
+			}
+
+			if (h > 1000) {
+				$("#anli_title02").animate({
+					top : 0,
+					opacity : 1
+				}, 700);
+			}
+
+			if (h > 2000) {
+				$("#anli_title03").animate({
+					top : 0,
+					opacity : 1
+				}, 700);
+			}
+
+		});
+
+	});
+</script>
+
+<!-- 与后台交互加载案例 -->
+<script type="text/javascript">
+	function loadExample(){
+	Pcm.ajax.postMVC({
+			noAlert : true,
+			server : 'commonRPC',
+			method : 'register'
+		});
+	};
+</script>
+<!-- 与后台交互加载案例 end -->
+
+<!-- 与后台交互联系我们 -->
+<script type="text/javascript">
+	function contact() {
+		$("#CONTACT_INFO").val();
+		var CONTACT_NAME = $("#CONTACT_NAME").val();
+		var CONTACT_EMAIL = $("#CONTACT_EMAIL").val();
+		var CONTACT_PHONE = $("#CONTACT_PHONE").val();
+		var CONTACT_INFO = $("#CONTACT_INFO").val();
+		Pcm.ajax
+				.postMVC({
+					noAlert : true,
+					server : 'commonRPC',
+					method : 'register',
+					params : [ CONTACT_NAME, CONTACT_EMAIL, CONTACT_PHONE,
+							CONTACT_INFO ],
+					success : function(data) {
+						if (data) {
+							location.reload();
+						} else {
+							alert(data);
+						}
+						console.log(data);
+					},
+					failure : function(msg) {
+						alert(msg);
+					}
+				});
+	};
+</script>
+<!-- 与后台交互联系我们 end -->
+
+</head>
+
+<body>
+
+	<!-- 顶部模块 -->
+	<div class="top">
+	<ul>
+		<li class="logined" style="display: none;"><a
+			href="javascript:exit()">退出</a></li>
+		<li class="logined" style="display: none;" id="userinfo"></li>
+		<li class="yinchang">
+		<a href="#LOGIN_AND_REGISTET" class="fancybox">
+		<img src="images/zhuce.png" />注册</a></li>
+		<li class="yinchang">
+			<a href="#LOGIN_AND_REGISTET" class="fancybox">
+		<img src="images/login.png" align="middle"
+				width="21" height="21" />登录</a></li>
+		<li style="padding-bottom:0;"><a href="javascript:void(0)"
+			class="sousuoLink"><img src="images/sousuo.png" /> </a> <em
+			class="clearfix searchEm"> <span><input type="text"
+					placeholder="试试关键字搜索更多" value=""> </span> <span><a href="#"><img
+						src="images/sousuo02.jpg"> </a> </span> </em>
+		</li>
+	</ul>
+</div>
+	<!-- 顶部模块  end -->
+
+	<!-- 悬浮层模块包括(logo,回到顶部,二维码) -->
+	<script type="text/javascript">
+		function b() {
+			h = $(window).height();
+			t = $(document).scrollTop();
+			if (t > 100) {
+				$('#gotop').show();
+			} else {
+				$('#gotop').hide();
+			}
+		}
+		$(document).ready(function(e) {
+			b();
+			$('#gotop').click(function() {
+				$(document).scrollTop(0);
+			});
+			$('#code').hover(function() {
+				$(this).attr('id', 'code_hover');
+				$('#code_img').show();
+			}, function() {
+				$(this).attr('id', 'code');
+				$('#code_img').hide();
+			});
+
+		});
+
+		$(window).scroll(function(e) {
+			b();
+		});
+	</script>
+<div id="code"></div>
+<div id="code_img"></div>
+<a id="gotop" href="javascript:void(0)"></a>
+<!-- logo -->
+<div class="logo">
+	<img src="images/logo2.png" />
+</div>
+	<!-- 悬浮层模块 end -->
+
+	<!-- 导航栏模块 -->
+	<div class="nav">
+		<ul class="clearfix">
+			<li><a href="index.jsp"> <span class="title_icon"> <img
+						src="images/icon_index01.jpg" /> </span> <span class="title nav_xianshi">
+						首页 </span> </a></li>
+			<li><a href="exampleSave.jsp"> <span class="title_icon">
+						<img src="images/icon_anli.jpg" /> </span> <span class="title">
+						搜索案例 </span> </a></li>
+			<li id="aboutus"><a href="index.jsp#anli_title02"> <span
+					class="title_icon"> <img src="images/icon_about.jpg" /> </span> <span
+					class="title"> 关于我们 </span> </a></li>
+			<li id="contactus"><a href="index.jsp#contact_us"> <span
+					class="title_icon"> <img src="images/icon_contact.jpg" /> </span>
+					<span class="title"> 联系我们 </span> </a></li>
+		</ul>
+	</div>
+	<!-- 导航栏模块 end -->
+
+	<!-- banner横幅模块 -->
+	<div class="slide_container">
+		<ul class="rslides" id="slider">
+			<li><img src="images/img1.jpg" alt=""></li>
+			<li><img src="images/img2.jpg" alt=""></li>
+			<li><img src="images/img3.jpg" alt=""></li>
+		</ul>
+	</div>
+	<!-- banner横幅模块 end -->
+
+	<!-- 案例模块 -->
+	<div class="anli">
+		<div class="anli_title" id="anli_title01">
+			案例
+			<p>尊重空间的使用者，以我的匠心换你之安心</p>
+		</div>
+
+		<div id="zzsc">
+			<a class="pre"></a>
+			<div id="wai_box">
+				<div class="zzsc_box">
+					<ul id="current_page_demo">
+						<!-- 与后台交互获取装修案例数据 -->
+						<!-- 						<script type="text/javascript">
+							var current = document.getElementById("current_page_demo");
+							Pcm.ajax.postMVC({
+								noAlert : true,
+								server : 'dictionariesRpc',
+								method : 'register',
+								params : [ PHONE, PWD, INVITATION_CODE ],
+								success : function(data) {
+									var dataObj=eval("("+data+")"); 
+									var list="";
+        								for(var i=0;i<dataObj.length;i++){
+        									list += "<li class='box'>"+
+        										"<a href='#' class='images'>"+
+        										"<img src="+images/01.jpg+" />";
+        									$("#current_page_demo").html().append();
+        								}
+        								$("#current_page_demo").html().append();
+									console.log(data);
+								},
+								failure : function(msg) {
+									alert(msg);
+								}
+							});
+						</script> -->
+						<!-- 与后台交互获取装修案例数据s end -->
+						<li class="box">
+							<a href="#" class="images">
+								<img src="images/01.jpg" />
+							</a>
+							<a href="javascript:void()" class="boxHover">
+								<div class="huiyuan">
+									<img src="images/touxiang01.jpg" />
+								</div>
+								<span class="boxHoverImg">
+									<img src="images/arrow.png" />
+								</span>
+								设计师名字 户型 造价
+							</a>
+						</li>
+					</ul>
+					<ul>
+						<li class="box">
+							<a href="#" class="images">
+								<img src="images/01.jpg" />
+							</a>
+							<a href="javascript:void()" class="boxHover">
+								<div class="huiyuan">
+									<img src="images/touxiang01.jpg" />
+								</div>
+								<span class="boxHoverImg">
+									<img src="images/arrow.png" />
+								</span>
+								设计师名字 户型 造价
+							</a>
+						</li>
+						<li class="box">
+							<a href="#" class="images">
+								<img src="images/01.jpg" />
+							</a>
+							<a href="javascript:void()" class="boxHover">
+								<div class="huiyuan">
+									<img src="images/touxiang01.jpg" />
+								</div>
+								<span class="boxHoverImg">
+									<img src="images/arrow.png" />
+								</span>
+								设计师名字 户型 造价
+							</a>
+						</li>
+					</ul>
+					<ul>
+						<li class="box">
+							<a href="#" class="images">
+								<img src="images/01.jpg" />
+							</a>
+							<a href="javascript:void()" class="boxHover">
+								<div class="huiyuan">
+									<img src="images/touxiang01.jpg" />
+								</div>
+								<span class="boxHoverImg">
+									<img src="images/arrow.png" />
+								</span>
+								设计师名字 户型 造价
+							</a>
+						</li>
+						<li class="box">
+							<a href="#" class="images">
+								<img src="images/01.jpg" />
+							</a>
+							<a href="javascript:void()" class="boxHover">
+								<div class="huiyuan">
+									<img src="images/touxiang01.jpg" />
+								</div>
+								<span class="boxHoverImg">
+									<img src="images/arrow.png" />
+								</span>
+								设计师名字 户型 造价
+							</a>
+						</li>
+						<li class="box">
+							<a href="#" class="images">
+								<img src="images/01.jpg" />
+							</a>
+							<a href="javascript:void()" class="boxHover">
+								<div class="huiyuan">
+									<img src="images/touxiang01.jpg" />
+								</div>
+								<span class="boxHoverImg">
+									<img src="images/arrow.png" />
+								</span>
+								设计师名字 户型 造价
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<a class="next"></a>
+		</div>
+	</div>
+	<!-- 案例模块 end -->
+
+	<!-- 关于我们模块 -->
+	<div class="about">
+		<div class="anli_title" id="anli_title02">
+			关于我们
+			<p>自家美——回归本质，以真为美</p>
+		</div>
+		<div class="about_mid">
+
+			<div class="Hr_1 clearfix" id="div" style="CURSOR: hand">
+				<a href="javascript:void(0)">
+					<img id="pc_0" style="DISPLAY: block" src="images/001.jpg" />
+				</a>
+				<a href="javascript:void(0)">
+					<img id="pc_1" style="DISPLAY: none" src="images/002.jpg" />
+				</a>
+				<a href="javascript:void(0)">
+					<img id="pc_2" style="DISPLAY: none" src="images/001.jpg" />
+				</a>
+				<a href="javascript:void(0)">
+					<img id="pc_3" style="DISPLAY: none" src="images/002.jpg" />
+				</a>
+				<div class="Hr_11">
+					<a class=act id=a0 onmouseover=clearAuto(); onclick=Mea(0); onmouseout=setAuto() href="javascript:void(0)">
+						<div class="ahout_title">
+							服务
+						</div>
+						<div class="about_nr">
+							服务服务服务服务服务服务服务服务
+						</div>
+						<div class="clear"></div>
+					</a>
+					<a class=nor id=a1 onmouseover=clearAuto(); onclick=Mea(1); onmouseout=setAuto() href="javascript:void(0)">
+						<div class="ahout_title">
+							特点
+						</div>
+						<div class="about_nr">
+							特点特点特点特点特点特点特点特点
+						</div>
+					</a>
+					<a class=nor id=a2 onmouseover=clearAuto(); onclick=Mea(2); onmouseout=setAuto() href="javascript:void(0)">
+						<div class="ahout_title">
+							追求
+						</div>
+						<div class="about_nr">
+							追求追求追求追求追求追求追求追求
+						</div>
+					</a>
+					<a class=nor id=a3 onmouseover=clearAuto(); onclick=Mea(3); onmouseout=setAuto() href="javascript:void(0)">
+						<div class="ahout_title">
+							自我
+						</div>
+						<div class="about_nr">
+							自我自我自我自我自我自我自我自我
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 关于我们模块 end -->
+
+	<!-- 联系我们模块 -->
+	<div class="contact clearfix">
+		<div class="anli_title" id="contact_us">
+			联系我们
+			<p>时空有限，联接无限</p>
+		</div>
+		<div class="contact_mid clearfix">
+			<div class="contact_left">
+				<div class="contact_pre">
+					<h1>地址：</h1>
+					<p>长宁区长宁路长宁上海上海上海上海上海</p>
+				</div>
+				<div class="contact_pre">
+					<h1>联系方式：</h1>
+					<p>
+						电话：021-6666 666<br /> 手机：13213256987<br /> 邮箱：1159239858@qq.com
+					</p>
+				</div>
+			</div>
+			<div class="contact_right">
+				<div class="contact_right_top clearfix">
+					<div class="contact_right_top_left">
+						<ul>
+							<li>姓名<input id="CONTACT_NAME" type="text" />
+							</li>
+							<li>邮箱<input id="CONTACT_EMAIL" type="text" />
+							</li>
+							<li>手机<input id="CONTACT_PHONE" type="text" />
+							</li>
+						</ul>
+					</div>
+					<div class="contact_right_top_right">
+						<textarea id="CONTACT_INFO" placeholder="请输入您需要的留言..." cols=""
+							rows=""></textarea>
+					</div>
+				</div>
+				<div class="contact_right_foot">
+					<button type="button" onclick="javascript:contact()" value="提交留言">提交留言</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 联系我们模块 end -->
+
+	<!-- 底部模块 -->
+	<div class="footer">
+	<span>版权所有 © XXXX装修公司</span><span>备案号：IP15263542268</span>
+</div>
+	<!-- 底部模块 end -->
+	
+	<!-- 登录注册弹出框模块  -->
+	<div id="LOGIN_AND_REGISTET" style="width:390px;display: none;">
+	<ul class="logTablist clearfix">
+		<li class="tabon"><a href="javascript:void(0)">登录</a></li>
+		<li style="mgr0"><a href="javascript:void(0)">注册</a></li>
+	</ul>
+
+	<div class="logWrap logWrapShow">
+		<div id="USER_NAME_SPACE">
+			<input id="USER_NAME" placeholder="用户名" type="text" class="inputType" />
+			<input id="USER_PWD" placeholder="密码" type="password"
+				class="inputType" />
+		</div>
+		<div id="ERROE_LOGIN_SPACE" class="tishi">
+			<div class="tishi_mid" id="ERROE_LOGIN_INFO"></div>
+		</div>
+		<div class="logForgets">
+			<a href="javascript:forget_password()">忘记密码？</a>
+		</div>
+		<input type="submit" value="登录" class="inputSmt"
+			onclick="javascript:login()" onkeypress="javascript:login()" />
+	</div>
+
+	<div class="logWrap">
+
+		<div id="PHONE_SPACE">
+			<input id="PHONE" placeholder="手机号" type="text" class="inputType" />
+			<div id="ERROE_PHONE_SPACE" class="tishi">
+				<div class="tishi_top"></div>
+				<div class="tishi_mid" id="ERROE_PHONE_INFO"></div>
+			</div>
+
+			<input id="PWD" placeholder="密码" type="password" class="inputType" />
+			<div id="ERROE_PASSWORD_SPACE" class="tishi">
+				<div class="tishi_top"></div>
+				<div class="tishi_mid" id="ERROE_PASSWORD_INFO"></div>
+			</div>
+
+			<input id="INVITATION_CODE" placeholder="邀请码" type="text"
+				class="inputType" />
+			<div id="ERROE_INVITATION_CODE_SPACE" class="tishi">
+				<div class="tishi_top"></div>
+				<div class="tishi_mid" id="ERROE_INVITATION_CODE_INFO"></div>
+			</div>
+		</div>
+
+		<input type="submit" value="提交" class="inputSmt"
+			onkeypress="javascript:register()" onclick="javascript:register()" />
+	</div>
+</div>
+	<!-- 登录注册弹出框模块 end -->
+</body>
+</html>
